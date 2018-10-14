@@ -1,0 +1,49 @@
+<!--buttons
+content: Search Results
+Sort By: Radio
+
+ngFor
+
+legs: [{results:[{}...{"price", "segments", "duration_min"]}]
+ - to/from,when leave/arrive, price, duration_min, stop_count
+
+
+status: success
+-->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Search Results</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-list radio-group [(ngModel)]="shouldSortByPrice">
+  <ion-item>
+    <ion-label>Cheapest</ion-label>
+    <ion-radio value="true"></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fastest</ion-label>
+    <ion-radio value="false"></ion-radio>
+  </ion-item>
+</ion-list>
+
+<ion-content padding>
+  <div *ngIf="shouldSortByPrice">
+    <ion-list>
+      <ion-item ng-repeat="option in searchResults | orderBy:'-price'">
+        Price: {{option.price}}; Duration: {{option.duration_min}}
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="!shouldSortByPrice">
+    <ion-list>
+      <ion-item ng-repeat="option in searchResults | orderBy:'-duration_min'">
+        Price: {{option.price}}; Duration: {{option.duration_min}}
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+
+<!--TODO: navigation-->
