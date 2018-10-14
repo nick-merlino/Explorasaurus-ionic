@@ -4,21 +4,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="spacing">
   <ion-list>
-
     <ion-item>
       Source
       <ion-searchbar
         [(ngModel)]="sourceSearchTerm"
-        (ionInput)="setSourceItems()" >
+        (ionInput)="setFilteredItems()" >
       </ion-searchbar>
-      <!-- This below is the problem -->
-      <!-- <ion-list>
-        <ion-item *ng-For="let item of sourceOptions">
-          {{item}}
+    </ion-item>
+    <ion-item>
+      <ion-list>
+        <ion-item 
+          (click)="setSourceSearchTerm(item)"
+          *ngFor="let item of sourceOptions">
+          <a>{{item}}</a>
         </ion-item>
-      </ion-list> -->
+      </ion-list>
+    </ion-item>
+
+    <ion-item>
+      Destination
+      <ion-searchbar
+        [(ngModel)]="destinationSearchTerm"
+        (ionInput)="setFilteredDestItems()" >
+      </ion-searchbar>
+    </ion-item>
+    <ion-item>
+      <ion-list>
+        <ion-item 
+          (click)="setDestSearchTerm(item)"
+          *ngFor="let item of destinationOptions">
+          <a>{{item}}</a>
+        </ion-item>
+      </ion-list> 
     </ion-item>
 
 
@@ -27,4 +46,6 @@
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="date"></ion-datetime>
     </ion-item>
   </ion-list>
+
+  <ion-button type="submit">Search Travel Options</ion-button>
 </ion-content>

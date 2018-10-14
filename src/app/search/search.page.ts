@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+//import { NavController } from 'ionic-angular';
+
+let cities = require('../cities.json');
 
 @Component({
   selector: 'app-search',
@@ -7,15 +10,33 @@ import { Component } from '@angular/core';
 })
 export class SearchPage {
   date = new Date().toISOString();
-  sourceSearchTerm: String = '';
+  sourceSearchTerm: string = '';
   sourceOptions;
-  locs = ["hi", "there"]
+  destinationOptions;
+  locs = cities;
+  destinationSearchTerm: string = '';
+
+  constructor(){}
+
+  goToSearchResults() {}
 
   ionViewDidLoad() {
-       this.setFilteredItems();
-   }
+    this.setFilteredItems();
+  }
 
-   setFilteredItems() {
-       this.sourceOptions = this.locs.filter((city) => city.startsWith(this.sourceSearchTerm));
-   }
+  setDestSearchTerm(term) {
+    this.destinationSearchTerm = term;
+  }
+
+  setFilteredDestItems() {
+    this.destinationOptions = this.locs.filter((city) => city.startsWith(this.destinationSearchTerm));
+  }
+
+  setSourceSearchTerm(term) {
+    this.sourceSearchTerm = term;
+  }
+
+  setFilteredItems() {
+    this.sourceOptions = this.locs.filter((city) => city.startsWith(this.sourceSearchTerm));
+  }
 }

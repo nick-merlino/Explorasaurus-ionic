@@ -4,11 +4,9 @@ Sort By: Radio
 
 ngFor
 
-legs: [{results:[{}...{"price", "segments", "duration_min"]}]
- - to/from,when leave/arrive, price, duration_min, stop_count
-
-
-status: success
+legs: [{results:[{},...,{"price", "segments", "duration_min"]}]
+segments: [{from_city, to_city, date, transportation_type, depart_time, arrive_time}]
+{"price": 138.7, "segments": [{"from_city": "CLT", "to_city": "BOS", "date": "2018-10-31T13:29:00", "transportation_type": "flight", "depart_time": "2018-10-31T13:29:00", "arrive_time": "2018-10-31T15:44:00"}
 -->
 
 <ion-header>
@@ -17,31 +15,42 @@ status: success
   </ion-toolbar>
 </ion-header>
 
-<ion-list radio-group [(ngModel)]="shouldSortByPrice">
-  <ion-item>
-    <ion-label>Cheapest</ion-label>
-    <ion-radio value="true"></ion-radio>
-  </ion-item>
-  <ion-item>
-    <ion-label>Fastest</ion-label>
-    <ion-radio value="false"></ion-radio>
-  </ion-item>
-</ion-list>
+<div class="form-group">
+  <div class="radio">
+    <label>
+      <input type="radio" name="opt" value="true" ng-model="shouldSortByPrice">
+      Cheapest
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+      <input type="radio" name="opt" value="false" ng-model="shouldSortByPrice">
+      Fastest
+    </label>
+  </div>
+</div>
+
 
 <ion-content padding>
+  <div *ngIf="searchResults.length > 0">
   <div *ngIf="shouldSortByPrice">
     <ion-list>
       <ion-item ng-repeat="option in searchResults | orderBy:'-price'">
-        Price: {{option.price}}; Duration: {{option.duration_min}}
+        Price: {{option.price}}
+        Duration: {{option.duration_min}}
+        Stops: {{option.segments.length}}
       </ion-item>
     </ion-list>
   </div>
   <div *ngIf="!shouldSortByPrice">
     <ion-list>
       <ion-item ng-repeat="option in searchResults | orderBy:'-duration_min'">
-        Price: {{option.price}}; Duration: {{option.duration_min}}
+        Price: {{option.price}}
+        Duration: {{option.duration_min}}
+        Stops: {{option.segments.length}}
       </ion-item>
     </ion-list>
+  </div>
   </div>
 </ion-content>
 
